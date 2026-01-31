@@ -1,5 +1,7 @@
 const { addMessage, getMessages } = require("./store");
 const { maskChatId } = require("./utils");
+const crypto = require("crypto");
+
 
 function setupSocket(io) {
   io.on("connection", (socket) => {
@@ -35,11 +37,10 @@ function setupSocket(io) {
   };
 
       addMessage(msg);
-
-      console.log(msg.gender, msg.text);
       io.to("GLOBAL").emit("chat:message", msg);
     });
   });
 }
 
 module.exports = setupSocket;
+
